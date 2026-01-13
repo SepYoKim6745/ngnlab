@@ -211,6 +211,22 @@ html {
     transform: scale(1.05);
 }
 
+.hero-slide-1 {
+    background-image: url('../img/labpic1.png');
+}
+
+.hero-slide-2 {
+    background-image: url('../img/labpic2.jpg');
+}
+
+.hero-slide-3 {
+    background-image: url('../img/labpic3.jpg');
+}
+
+.hero-slide-4 {
+    background-image: url('../img/labpic4.jpg');
+}
+
 .hero-slide.active {
     opacity: 1;
     transform: scale(1);
@@ -262,6 +278,33 @@ html {
     border-color: var(--white);
     color: var(--white);
     transform: translateY(-3px);
+}
+
+/* ===== Alert Popup ===== */
+.alert-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    background-color: #3498db; /* Default info color */
+    color: white;
+    font-weight: bold;
+    z-index: 10000;
+    animation: slideIn 0.3s ease;
+    max-width: 300px;
+}
+
+.alert-popup.success {
+    background-color: #27ae60;
+}
+
+.alert-popup.error {
+    background-color: #e74c3c;
+}
+
+.alert-popup.closing {
+    animation: slideOut 0.3s ease forwards;
 }
 
 /* ===== ì˜ìƒ ì„¹ì…˜ ===== */
@@ -1193,18 +1236,28 @@ html {
     }
 }
 
-@keyframes fadeIn {
+@keyframes slideIn {
     from {
+        transform: translateX(100%);
         opacity: 0;
     }
     to {
+        transform: translateX(0);
         opacity: 1;
     }
 }
 
-.fade-in {
-    animation: fadeIn 0.6s ease forwards;
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
 }
+
 
 /* ===== íƒœë¸”ë¦¿ ë°˜ì‘í˜• (768px ì´í•˜) ===== */
 @media (max-width: 768px) {
@@ -1395,7 +1448,7 @@ html {
     }
 }
 
-/* ===== ´º½º ¼½¼Ç (°Ô½ÃÆÇ) ===== */
+/* ===== ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ô½ï¿½ï¿½ï¿½) ===== */
 .news-board-section {
     padding: 60px 20px;
 }
@@ -1491,7 +1544,7 @@ html {
     color: #0f9b6c;
 }
 
-/* ===== ´º½º °Ô½ÃÆÇ È®Àå ½ºÅ¸ÀÏ ===== */
+/* ===== ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ ===== */
 .board-row {
     cursor: pointer;
 }

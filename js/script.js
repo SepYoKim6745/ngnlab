@@ -63,6 +63,8 @@ function initializeMobileMenu() {
 // ===== 헤더 스크롤 효과 =====
 function initializeHeaderScroll() {
     const header = document.querySelector('.header');
+    if (!header) return;
+    
     window.addEventListener('scroll', () => {
         if (window.scrollY > 0) {
             header.classList.add('scrolled');
@@ -88,8 +90,10 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // fade-in 클래스가 있는 모든 요소 관찰
-document.querySelectorAll('.fade-in').forEach(el => {
-    observer.observe(el);
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+    });
 });
 
 // ===== 통계 카운터 애니메이션 =====
@@ -161,25 +165,16 @@ if (contactForm) {
 // ===== 알림 메시지 표시 =====
 function showAlert(message, type = 'info') {
     const alertDiv = document.createElement('div');
-    alertDiv.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 15px 20px;
-        border-radius: 8px;
-        background-color: ${type === 'success' ? '#27ae60' : type === 'error' ? '#e74c3c' : '#3498db'};
-        color: white;
-        font-weight: bold;
-        z-index: 10000;
-        animation: slideIn 0.3s ease;
-        max-width: 300px;
-    `;
+    alertDiv.classList.add('alert-popup');
+    if (type === 'success') alertDiv.classList.add('success');
+    if (type === 'error') alertDiv.classList.add('error');
+    
     alertDiv.textContent = message;
     document.body.appendChild(alertDiv);
 
     // 3초 후 제거
     setTimeout(() => {
-        alertDiv.style.animation = 'slideOut 0.3s ease';
+        alertDiv.classList.add('closing');
         setTimeout(() => alertDiv.remove(), 300);
     }, 3000);
 }
@@ -247,32 +242,35 @@ function initializeHeroSlider() {
 
 document.addEventListener('DOMContentLoaded', initializeHeroSlider);
 
-// ===== 동적 스타일 추가 (애니메이션) =====
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
+// ===== Member photo hover swap =====
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.member-photo[data-hover]').forEach(img => {
+        const original = img.getAttribute('src');
+        const hoverSrc = img.dataset.hover;
 
-    @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
+        img.addEventListener('mouseenter', () => {
+            if (hoverSrc) img.src = hoverSrc;
+        });
+        img.addEventListener('mouseleave', () => {
+            img.src = original;
+        });
+    });
+});
+
+// ===== News Board Toggle =====
+document.addEventListener('DOMContentLoaded', () => {
+    const rows = document.querySelectorAll('.board-row');
+    rows.forEach(row => {
+        row.addEventListener('click', () => {
+            const targetId = row.getAttribute('data-target');
+            const detail = document.getElementById(targetId);
+            if (!detail) return;
+            const isOpen = detail.classList.contains('open');
+            document.querySelectorAll('.board-detail.open').forEach(el => el.classList.remove('open'));
+            if (!isOpen) detail.classList.add('open');
+        });
+    });
+});
 
 // ===== 페이지 로드 완료 표시 =====
 window.addEventListener('load', () => {

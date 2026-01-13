@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; frame-src 'self' https://www.google.com;">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alumni - NGN Lab</title>
     <link rel="stylesheet" href="../css/style.css">
@@ -202,22 +203,5 @@
     </section>
 
     <div id="footer-container"></div>
-
-    <script src="../js/script.js"></script>
-    <script>
-        // Alumni photo hover swap
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.member-photo[data-hover]').forEach(img => {
-                const original = img.getAttribute('src');
-                const hoverSrc = img.dataset.hover;
-                img.addEventListener('mouseenter', () => {
-                    if (hoverSrc) img.src = hoverSrc;
-                });
-                img.addEventListener('mouseleave', () => {
-                    img.src = original;
-                });
-            });
-        });
-    </script>
 </body>
 </html>

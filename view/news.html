@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; frame-src 'self' https://www.google.com;">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>뉴스 - NGN Lab</title>
     <link rel="stylesheet" href="../css/style.css">
@@ -94,22 +95,5 @@
     </section>
 
     <div id="footer-container"></div>
-
-    <script>
-        // 제목 클릭 시 상세 내용 토글
-        document.addEventListener('DOMContentLoaded', () => {
-            const rows = document.querySelectorAll('.board-row');
-            rows.forEach(row => {
-                row.addEventListener('click', () => {
-                    const targetId = row.getAttribute('data-target');
-                    const detail = document.getElementById(targetId);
-                    if (!detail) return;
-                    const isOpen = detail.classList.contains('open');
-                    document.querySelectorAll('.board-detail.open').forEach(el => el.classList.remove('open'));
-                    if (!isOpen) detail.classList.add('open');
-                });
-            });
-        });
-    </script>
 </body>
 </html>
