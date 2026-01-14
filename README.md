@@ -60,6 +60,10 @@ server {
     root /srv/ngnlab/view;
     index index.html;
 
+    # 보안 헤더 추가 (Clickjacking 방지)
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header Content-Security-Policy "frame-ancestors 'self';" always;
+
     location /css/   { alias /srv/ngnlab/css/; }
     location /js/    { alias /srv/ngnlab/js/; }
     location /img/   { alias /srv/ngnlab/img/; }
